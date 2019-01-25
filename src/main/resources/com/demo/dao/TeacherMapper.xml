@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.dao.TeacherDao" >
+    <resultMap id="TeacherMap" type="com.demo.entity.Teacher" >
+        <id column="teacher_num" property="teacherNum" />
+        <result column="teacher_name" property="teacherName"  />
+    </resultMap>
+
+    <select id="listTeacher"  resultMap="TeacherMap" >
+        select * from teacher
+    </select>
+
+    <insert id="saveTeacher" parameterType="Teacher" >
+        insert into teacher values (#{teacherNum}, #{teacherName})
+    </insert>
+
+    <delete id="deleteTeacher" parameterType="Integer">
+        delete from teacher where teacher_num=#{teacherNum}
+    </delete>
+
+    <update id="updateTeacher" parameterType="Teacher">
+        update teacher set teacher_name=#{teacherName} where teacher_num=#{teacherNum}
+    </update>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.dao.CourseDao" >
+    <resultMap id="CourseMap" type="com.demo.entity.Course" >
+        <id column="course_num" property="courseNum" />
+        <result column="course_name" property="courseName"  />
+    </resultMap>
+
+    <select id="listCourse"  resultMap="CourseMap" >
+        select * from course
+    </select>
+
+    <insert id="saveCourse" parameterType="com.demo.entity.Course" >
+        insert into course values (#{courseNum}, #{courseName})
+    </insert>
+
+    <delete id="deleteCourse" parameterType="java.lang.Integer">
+        delete from course where course_num=#{courseNum}
+    </delete>
+    
+    <update id="updateCourse" parameterType="com.demo.entity.Course">
+        update course set course_name=#{courseName} where course_num=#{courseNum}
+    </update>
+
+</mapper>

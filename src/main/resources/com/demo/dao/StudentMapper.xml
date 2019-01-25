@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.dao.StudentDao" >
+    <resultMap id="StudentMap" type="com.demo.entity.Student" >
+        <id column="student_num" property="studentNum" />
+        <result column="student_name" property="studentName"  />
+        <result column="classroom" property="classroom"  />
+    </resultMap>
+
+    <select id="listStudent"  resultMap="StudentMap" >
+        select * from student
+    </select>
+
+    <insert id="saveStudent" parameterType="Student" >
+        insert into student values (#{studentNum}, #{studentName},#{classroom})
+    </insert>
+
+    <delete id="deleteStudent" parameterType="Integer">
+        delete from student where student_num=#{studentNum}
+    </delete>
+
+    <update id="updateStudent" parameterType="Student">
+        update student set student_name=#{studentName} , classroom=#{classroom} where student_num=#{studentNum}
+    </update>
+
+</mapper>

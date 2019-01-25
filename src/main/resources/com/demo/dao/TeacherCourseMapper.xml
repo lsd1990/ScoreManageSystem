@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.dao.TeacherCourseDao" >
+    <resultMap id="TeacherCourseMap" type="TeacherCourse" >
+        <id column="teacher_num" property="teacherNum" />
+        <id column="course_num" property="courseNum" />
+        <id column="classroom" property="classroom" />
+        <result column="course_name" property="courseName"  />
+    </resultMap>
+
+    <insert id="saveTeacherCourse" parameterType="TeacherCourse" >
+        insert into teacher_course values (#{teacherNum}, #{courseNum},#{courseName},#{classroom})
+    </insert>
+
+    <select id="listTeacherCourse"  resultMap="TeacherCourseMap" >
+        select * from teacher_course
+    </select>
+
+    <select id="listTeacherCourseByTeacherNum"  resultMap="TeacherCourseMap" parameterType="Integer">
+        select * from teacher_course where teacher_num=#{teacherNum}
+    </select>
+
+    <delete id="deleteTeacherCourse"  parameterType="TeacherCourse">
+        delete from teacher_course where teacher_num=#{teacherNum} and course_num=#{courseNum} and classroom=#{classroom}
+    </delete>
+
+    <update id="updateTeacherCourse"  >
+        update teacher_course
+        <set>
+            <if test="teacherCourse.teacherNum != null">
+                 teacher_num=#{teacherCourse.teacherNum},
+            </if>
+            <if test="teacherCourse.courseNum != null">
+                course_num=#{teacherCourse.courseNum},
+            </if>
+            <if test="teacherCourse.courseName != null">
+                course_name=#{teacherCourse.courseName},
+            </if>
+            <if test="teacherCourse.classroom !=null">
+                classroom=#{teacherCourse.classroom}
+            </if>
+        </set>
+        where teacher_num=#{teacherNum_before} and course_num=#{courseNum_before} and classroom=#{classroom_before}
+    </update>
+
+</mapper>
